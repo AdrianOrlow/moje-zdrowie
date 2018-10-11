@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <title>Moje Zdrowie</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="">
+
+    <!-- Google Analytics -->
+
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../static/css/src/style.css" />
+
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="../static/css/dist/normalize.min.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900">
+</head>
+
+<body>
+    <div class="modal--medicines modal--medicines--relative">
+        <p class="medtable__title">Wyniki wyszukiwania</p>
+
+        <div class="medtable__el" style="background: #D4D4D4;font-weight: 600;height: 2em; cursor: unset; pointer-events: none;">
+            <div style="line-height: 2em;">Nazwa skrócona</div>
+            <div style="line-height: 2em;">Siła</div>
+            <div style="line-height: 2em;">Producent</div>
+        </div>
+
+
+        {{if .Medicines}}
+        {{range .Medicines}}
+        <form class="medtable__el" action="/medicines" method="post" onclick="submit();">
+            <div>{{.ShortName}}</div>
+            <div>{{.Strength}}</div>
+            <div>{{.Producer}}</div>
+            <input hidden name="medID" value="{{.ID}}">
+        </form>
+        {{end}}
+        {{else}}
+        <p class="medtable__info">Nic nie znaleziono</p>
+        {{end}}
+
+        <div class="medtable__footer">
+            <div class="medtable__lastupdate">Aktualizacja: <span>{{.LastUpdate}}</span></div>
+            <div class="medtable__credits">Źródło: <a href="https://dane.gov.pl/dataset/397/resource/1851">RPL</a></div>
+        </div>
+    </div>
+</body>
+
+</html>

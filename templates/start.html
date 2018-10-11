@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <title>Moje Zdrowie</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="">
+
+    <!-- Google Analytics -->
+
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../static/css/src/style.css" />
+
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="../static/css/dist/normalize.min.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900">
+</head>
+
+<body>
+    <div class="modal--start">
+        <div class="start__logo text--center">
+            <img alt="logo" src="../static/img/svg/logo.svg">
+        </div>
+        <a class="start__el text--center" href="map">
+            <div class="start__el__symbol text--center"></div>
+            <div class="start__el__text">Mapa aptek</div>
+        </a>
+        <a class="start__el text--center" href="medicines">
+            <div class="start__el__symbol text--center"></div>
+            <div class="start__el__text">Produkty lecznicze</div>
+        </a>
+        <a class="start__el text--center" href="refunded">
+            <div class="start__el__symbol text--center"></div>
+            <div class="start__el__text">Leki refundowane</div>
+        </a>
+        <div class="start__footer text--center">
+            © Adrian Orłów 2018
+        </div>
+    </div>
+    <div id="map" class="block--blur"></div>
+    <script>
+        var map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 52.2330653,
+                    lng: 20.9211125
+                },
+                zoom: 8
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfKXRZXeuDipRrraTgKT2JAf5qqLqDQj4&callback=initMap"
+        async defer></script>
+</body>
+
+</html>

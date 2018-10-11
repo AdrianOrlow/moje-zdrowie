@@ -1,0 +1,482 @@
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    font-family: Montserrat;
+    background: #fff !important;
+}
+
+a {
+    color: #111;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #111;
+    text-decoration: none;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.block--blur {
+    pointer-events: none;
+    filter: blur(4px);
+}
+
+.text--center {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+
+/* Start page */
+
+#map {
+    height: 100%;
+}
+
+.modal--start {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25em;
+    height: auto;
+    background: #ececec;
+    border-radius: .5em;
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+    box-shadow: 0 5px 20px -1px #44444440;
+}
+
+.start__logo {
+    height: 6.5em;
+    border-bottom: 1px solid #d5d5d5;
+}
+
+.start__logo img {
+    width: 50%;
+    height: auto;
+}
+
+.start__el,
+.start__footer {
+    height: 5.5em;
+}
+
+.start__el {
+    position: relative;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.start__el:hover {
+    background: #e2e2e2;
+}
+
+.start__el:active {
+    background: #d1d1d1;
+}
+
+.start__footer {
+    font-weight: 600;
+}
+
+.start__el__symbol {
+    width: 25%;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 500;
+    font-weight: 600;
+    font-size: 1.3em;
+    color: #333;
+}
+
+.start__el__text {
+    height: 2em;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: left;
+    justify-content: left;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 75%;
+    margin-left: 25%;
+    height: 100%;
+    font-size: 1.3em;
+}
+
+/* Medicines */
+
+.modal--medicines {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 38em;
+    padding: 2em;
+    height: auto;
+    background: #ececec;
+    border-radius: .5em;
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+    box-shadow: 0 5px 20px -1px #44444440;
+}
+
+.modal--medicines .medicines__input {
+    border: none;
+    padding: 1em;
+    border-radius: .5em;
+    background: #fff;
+    width: 30%;
+    margin-right: 5%;
+}
+
+.modal--medicines .medicines__submit {
+    display: inline-block;
+    padding: 1em;
+    margin: auto;
+    width: calc(30% - 7em);
+    border-radius: .5em;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+    background: #e2e2e2;
+}
+
+.medtable__title,
+.medicines__title {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 2em;
+}
+
+.medtable__el {
+    width: calc(100% - 2em);
+    height: 4em;
+    padding: 1em;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+    border-radius: .5em;
+    margin-bottom: 1em;
+}
+
+.medtable__el:hover {
+    background: #e2e2e2;
+}
+
+.medtable__el:active {
+    background: #d5d5d5;
+}
+
+div .medtable__el:nth-child(even) {
+    background: #e2e2e2;
+}
+
+.medtable__el:nth-child(even):hover {
+    background: #d5d5d5;
+}
+
+.medtable__el:nth-child(even):active {
+    background: #d1d1d1;
+}
+
+.medtable__el div {
+    height: 100%;
+    display: inline-block;
+    line-height: 4em;
+}
+
+.medtable__el div:nth-child(1) {
+    width: 40%;
+    font-weight: 600;
+}
+
+.medtable__el div:nth-child(2),
+.medtable__el div:nth-child(3) {
+    text-align: center;
+}
+
+.medtable__el div:nth-child(2) {
+    width: 20%;
+}
+
+.medtable__el div:nth-child(3) {
+    width: 38%;
+}
+
+.medtable__el * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.medtable__lastupdate {
+    margin-top: 2em;
+    display: inline-block;
+    left: 0;
+}
+
+.medtable__lastupdate span {
+    font-weight: 600;
+}
+
+.medtable__credits {
+    margin-top: 2em;
+    display: inline-block;
+    right: 0;
+    position: absolute;
+}
+
+.medtable__credits a {
+    font-weight: 600;
+}
+
+.modal--medicines--relative {
+    margin: auto;
+    margin-top: 5%;
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: unset;
+    margin-bottom: 2em;
+}
+
+.medtable__footer {
+    width: 100%;
+    position: relative;
+}
+
+.medtable__info {
+    font-weight: 600;
+    font-size: 1.3em;
+    text-align: center;
+    margin: 2em 0;
+}
+
+/* Medicine Info */
+
+.medicines__names {
+    width: 100%;
+    font-size: 1.1em;
+    font-weight: 600;
+    display: flex;
+    border-radius: .5em;
+    overflow: hidden;
+    margin-bottom: 2em;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.medicines__name {
+    width: 45%;
+    text-align: center;
+    padding: 2.5%;
+}
+
+.medicines__names:first-child {
+    background: #e1e1e1;
+}
+
+.medicines__name:last-child {
+    display: inline-block;
+    background: #d5d5d5;
+}
+
+.medinfo__title {
+    background: #97a8ba;
+    color: #fafafa;
+    width: 45%;
+    padding: 2.5%;
+    border-top-right-radius: .5em;
+    border-top-left-radius: .5em;
+    font-weight: 600;
+}
+
+.medinfo__container {
+    width: 90%;
+    padding: 5%;
+    height: auto;
+    background: #e1e1e1;
+    border-radius: .5em;
+    border-top-left-radius: 0;
+}
+
+.medinfo__info-container {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.medinfo__info-label {
+    width: 25%;
+    padding: 5%;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+    background: #97a8ba;
+    border-top-left-radius: .5em;
+    border-bottom-left-radius: .5em;
+    display: flex;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.medinfo__info-content {
+    display: inline-flex;
+    display: -ms-inline-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 55%;
+    padding: 5%;
+    text-align: center;
+    font-weight: 600;
+    color: #222;
+    background: #d5d5d5;
+    border-top-right-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+
+.medinfo__moreinfo-titles {
+    background: #97a8ba;
+    font-weight: 600;
+    display: flex;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+    overflow: hidden;
+}
+
+.medinfo__moreinfo-ean {
+    width: 45%;
+    text-align: center;
+    padding: 2.5%;
+    color: #fafafa;
+}
+
+.medinfo__moreinfo-size {
+    width: 45%;
+    text-align: center;
+    display: inline-block;
+    background: #dedede;
+    padding: 2.5%;
+}
+
+.medinfo__moreinfo-container:nth-child(even) .medinfo__moreinfo-ean {
+    background: #7d8ea0;
+}
+
+.medinfo__moreinfo-container:nth-child(odd) .medinfo__moreinfo-size {
+    background: #d9d9d9;
+}
+
+.medinfo__moreinfo-container {
+    width: 100%;
+    font-size: 1em;
+    font-weight: 600;
+    display: flex;
+    overflow: hidden;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: #79899a;
+}
+
+.medinfo__moreinfo-container:last-child {
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+    overflow: hidden;
+}
+
+.medinfo__btn {
+    width: 95%;
+    padding: 2.5%;
+    background: #e1e1e1;
+    border-radius: .5em;
+    display: block;
+    font-weight: 600;
+    margin-top: 2em;
+    text-align: center;
+    transition: .2s ease-in-out;
+}
+
+.medinfo__btn:hover {
+    background: #dedede;
+}
+
+.medinfo__btn:active {
+    background: #d5d5d5;
+}
+
+.medinfo__as-label {
+    width: 90%;
+    padding: 5%;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+    background: #97a8ba;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+    display: flex;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.medinfo__as-el {
+    width: 90%;
+    text-align: center;
+    display: block;
+    background: #d9d9d9;
+    padding: 5%;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.medinfo__as-el:hover {
+    background: #d5d5d5 !important;
+}
+
+.medinfo__as-el:active {
+    background: #d1d1d1 !important;
+}
+
+.medinfo__info-container .medinfo__as-el:nth-child(odd) {
+    background: #dedede;
+}
+
+.medinfo__as-el:last-child {
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+}

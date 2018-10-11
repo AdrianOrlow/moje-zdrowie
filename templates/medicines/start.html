@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <title>Moje Zdrowie</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="">
+
+    <!-- Google Analytics -->
+
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../static/css/src/style.css" />
+
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="../static/css/dist/normalize.min.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900">
+</head>
+
+<body>
+    <form class="modal--medicines" action="/medicines" method="post" id="searchForm">
+        <p class="medicines__title">Wyszukaj</p>
+        <input class="medicines__input" placeholder="Nazwa" name="name">
+        <input class="medicines__input" placeholder="Kod EAN" name="ean_code">
+        <div class="medicines__submit" onclick="search();">Szukaj</div>
+    </form>
+    <script>
+        function search() {
+            document.getElementById("searchForm").submit();
+        }
+    </script>
+</body>
+
+</html>

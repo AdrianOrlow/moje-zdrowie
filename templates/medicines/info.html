@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <title>Moje Zdrowie</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="">
+
+    <!-- Google Analytics -->
+
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../static/css/src/style.css" />
+
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="../static/css/dist/normalize.min.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900">
+</head>
+
+<body>
+    <div class="modal--medicines modal--medicines--relative">
+        <div class="medicines__names">
+            <div class="medicines__name" title="Nazwa produktu">{{.FullName}}</div>
+            <div class="medicines__name" title="Nazwa powszechnie stosowana">{{.ShortName}}</div>
+        </div>
+
+        <div class="medinfo__title">Podstawowe informacje</div>
+        <div class="medinfo__container" style="margin-bottom: 2em;">
+
+            {{if .Strength}}
+            <div class="medinfo__info-container">
+                <div class="medinfo__info-label">Siła</div>
+                <div class="medinfo__info-content">{{.Strength}}</div>
+            </div>
+            {{end}}
+
+            {{if .Kind}}
+            <div class="medinfo__info-container">
+                <div class="medinfo__info-label">Rodzaj</div>
+                <div class="medinfo__info-content">{{.Kind}}</div>
+            </div>
+            {{end}}
+
+            {{if .Producer}}
+            <div class="medinfo__info-container">
+                <div class="medinfo__info-label">Producent</div>
+                <div class="medinfo__info-content">{{.Producer}}</div>
+            </div>
+            {{end}}
+
+            {{if .Validity}}
+            <div class="medinfo__info-container">
+                <div class="medinfo__info-label">Ważność</div>
+                <div class="medinfo__info-content">{{.Validity}}</div>
+            </div>
+            {{end}}
+
+            {{if .ActiveSubstances}}
+            <div class="medinfo__info-container" style="display: block;">
+                <div class="medinfo__as-label">Substancje aktywne</div>
+                {{range .ActiveSubstances}}
+                <form class="medinfo__as-el" action="/medicines" method="post" onclick="submit();">
+                    {{.}}
+                    <input hidden name="name" value="{{.}}">
+                </form>
+                {{end}}
+            </div>
+            {{end}}
+        </div>
+
+        <div class="medinfo__title">Opakowania</div>
+        <div class="medinfo__container">
+
+            <div class="medinfo__moreinfo-titles">
+                <div class="medinfo__moreinfo-ean">Kod EAN/numer EU</div>
+                <div class="medinfo__moreinfo-size" style="background: #cdcdcd;">Wielkość</div>
+            </div>
+
+            {{range .Packages}}
+            <div class="medinfo__moreinfo-container">
+                {{if .EanCode}}
+                <div class="medinfo__moreinfo-ean">{{.EanCode}}</div>
+                {{else if .EuNumber}}
+                <div class="medinfo__moreinfo-ean">{{.EuNumber}}</div>
+                {{end}}
+                <div class="medinfo__moreinfo-size">{{.Size}} {{.SizeUnit}}</div>
+            </div>
+            {{end}}
+
+        </div>
+
+        <a class="medinfo__btn" href="https://google.pl//search?&q={{.FullName}}">
+            Szukaj więcej w Google
+        </a>
+    </div>
+</body>
+
+</html>
