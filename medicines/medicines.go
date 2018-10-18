@@ -2,23 +2,28 @@ package medicines
 
 import (
 	"encoding/xml"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 )
 
 type Medicines struct {
-	XMLName    xml.Name   `xml:"produktyLecznicze"`
-	LastUpdate string     `xml:"stanNaDzien,attr"`
+	XMLName    xml.Name `xml:"produktyLecznicze"`
+	LastUpdate string   `xml:"stanNaDzien,attr"`
+	Min        int
+	Max        int
+	PageNumber int
 	Medicines  []Medicine `xml:"produktLeczniczy"`
 }
 
 type Medicine struct {
 	XMLName          xml.Name  `xml:"produktLeczniczy"`
-	FullName         string    `xml:"nazwaProduktu,attr"`
-	ShortName        string    `xml:"nazwaPowszechnieStosowana,attr"`
+	ProductName      string    `xml:"nazwaProduktu,attr"`
+	CommonName       string    `xml:"nazwaPowszechnieStosowana,attr"`
 	Strength         string    `xml:"moc,attr"`
 	Kind             string    `xml:"postac,attr"`
 	Producer         string    `xml:"podmiotOdpowiedzialny,attr"`
@@ -36,10 +41,9 @@ type Package struct {
 	EuNumber string   `xml:"numerEu,attr"`
 }
 
-func MoreInfo(w http.ResponseWriter, r *http.Request, medID string) {
-	infoData := Medicine{}
+var medicines Medicines
 
-	var medicines Medicines
+func GetName(ean string) (name string, ID string) {
 	medicinesData, _ := os.Open("downloads/medicines.xml")
 	defer medicinesData.Close()
 	byteValue, _ := ioutil.ReadAll(medicinesData)
@@ -47,7 +51,23 @@ func MoreInfo(w http.ResponseWriter, r *http.Request, medID string) {
 
 	for i := 0; i < len(medicines.Medicines); i++ {
 		for j := 0; j < len(medicines.Medicines[i].Packages); j++ {
-			switch strings.Contains(medicines.Medicines[i].ID, medID) {
+			switch medicines.Medicines[i].Packages[j].EanCode == ean {
+			case true:
+				name = medicines.Medicines[i].ProductName
+				ID = medicines.Medicines[i].ID
+				break
+			}
+		}
+	}
+	return
+}
+
+func MoreInfo(w http.ResponseWriter, r *http.Request, medID string) {
+	infoData := Medicine{}
+
+	for i := 0; i < len(medicines.Medicines); i++ {
+		for j := 0; j < len(medicines.Medicines[i].Packages); j++ {
+			switch medicines.Medicines[i].ID == medID {
 			case true:
 				infoData = medicines.Medicines[i]
 				break
@@ -59,61 +79,62 @@ func MoreInfo(w http.ResponseWriter, r *http.Request, medID string) {
 	t.Execute(w, infoData)
 }
 
-func Results(w http.ResponseWriter, r *http.Request) {
+func CheckEanCode(w http.ResponseWriter, r *http.Request, ean string) {
+	for i := 0; i < len(medicines.Medicines); i++ {
+		for j := 0; j < len(medicines.Medicines[i].Packages); j++ {
+			switch medicines.Medicines[i].Packages[j].EanCode == ean {
+			case true:
+				MoreInfo(w, r, medicines.Medicines[i].ID)
+			}
+		}
+	}
+}
+
+func CheckName(min, max int, name string) Medicines {
+	data := Medicines{}
+	for i := min; i < len(medicines.Medicines); i++ {
+		switch strings.Contains(strings.ToLower(medicines.Medicines[i].CommonName), strings.ToLower(name)) {
+		case true:
+			data.Medicines = append(data.Medicines, medicines.Medicines[i])
+			break
+		}
+
+		switch strings.Contains(strings.ToLower(medicines.Medicines[i].ProductName), strings.ToLower(name)) {
+		case true:
+			data.Medicines = append(data.Medicines, medicines.Medicines[i])
+			break
+		}
+
+		if len(data.Medicines) > max {
+			data.Min = i
+			data.Max = max
+			data.PageNumber = int(float64(max) / 25.0)
+			break
+		}
+	}
+	fmt.Println(data)
+	data.LastUpdate = medicines.LastUpdate
+	return data
+}
+
+func Results(w http.ResponseWriter, r *http.Request, min, max int) {
 	r.ParseForm()
 	form := r.Form
 
 	if strings.Join(form["medID"], "") != "" {
 		MoreInfo(w, r, strings.Join(form["medID"], ""))
 	} else {
-
-		pageData := Medicines{}
-
-		var medicines Medicines
-		medicinesData, _ := os.Open("downloads/medicines.xml")
-		defer medicinesData.Close()
-		byteValue, _ := ioutil.ReadAll(medicinesData)
-		xml.Unmarshal(byteValue, &medicines)
-
-		pageData.LastUpdate = medicines.LastUpdate
-
-		switch v := strings.Join(form["ean_code"], ""); v != "" {
+		switch ean := strings.Join(form["ean_code"], ""); ean != "" {
 		case true:
-			for i := 0; i < len(medicines.Medicines); i++ {
-				for j := 0; j < len(medicines.Medicines[i].Packages); j++ {
-					switch strings.Contains(medicines.Medicines[i].Packages[j].EanCode, v) {
-					case true:
-						pageData.Medicines = append(pageData.Medicines, medicines.Medicines[i])
-						break
-					}
-				}
-
-				if len(pageData.Medicines) > 25 {
-					break
-				}
-			}
-			break
+			CheckEanCode(w, r, ean)
+			return
 		}
 
-		switch v := strings.Join(form["name"], ""); v != "" {
+		var pageData Medicines
+
+		switch name := strings.Join(form["name"], ""); name != "" {
 		case true:
-			for i := 0; i < len(medicines.Medicines); i++ {
-				switch strings.Contains(medicines.Medicines[i].ShortName, v) {
-				case true:
-					pageData.Medicines = append(pageData.Medicines, medicines.Medicines[i])
-					break
-				}
-
-				switch strings.Contains(medicines.Medicines[i].FullName, v) {
-				case true:
-					pageData.Medicines = append(pageData.Medicines, medicines.Medicines[i])
-					break
-				}
-
-				if len(pageData.Medicines) > 25 {
-					break
-				}
-			}
+			pageData = CheckName(min, max, name)
 			break
 		}
 
@@ -125,7 +146,17 @@ func Results(w http.ResponseWriter, r *http.Request) {
 func Page(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
-		Results(w, r)
+		medicinesData, _ := os.Open("downloads/medicines.xml")
+		defer medicinesData.Close()
+		byteValue, _ := ioutil.ReadAll(medicinesData)
+		xml.Unmarshal(byteValue, &medicines)
+
+		var min, max int = 0, 25
+		if len(r.Form["min"]) > 0 {
+			max, _ = strconv.Atoi(r.FormValue("max")[0:])
+			min, _ = strconv.Atoi(r.FormValue("min")[0:])
+		}
+		Results(w, r, min, max)
 	} else {
 		t, _ := template.ParseFiles("templates/medicines/start.html")
 		t.Execute(w, nil)

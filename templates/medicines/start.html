@@ -33,12 +33,18 @@
 </head>
 
 <body>
-    <form class="modal--medicines" action="/medicines" method="post" id="searchForm">
+    <form class="modal--medicines" action="/medicines" method="post" id="searchForm" style="width: 20em;">
         <p class="medicines__title">Wyszukaj</p>
-        <input class="medicines__input" placeholder="Nazwa" name="name">
-        <input class="medicines__input" placeholder="Kod EAN" name="ean_code">
+        <input class="medicines__input" placeholder="Nazwa" name="name" style="margin-bottom: 1em;">
+        <input class="medicines__input" placeholder="Kod EAN" name="ean_code" id="ean" style="width: 60%">
+        <div class="medicines__scan" id="scan"></div>
         <div class="medicines__submit" onclick="search();">Szukaj</div>
     </form>
+    <input hidden type="file" id="imageLoader" name="imageLoader" />
+
+    <!-- QuaggaJS -->
+    <script src="../static/js/dist/quagga.min.js"></script>
+    <script src="../static/js/dist/quagga_init.min.js"></script>
     <script>
         function search() {
             document.getElementById("searchForm").submit();

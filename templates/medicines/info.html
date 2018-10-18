@@ -35,8 +35,8 @@
 <body>
     <div class="modal--medicines modal--medicines--relative">
         <div class="medicines__names">
-            <div class="medicines__name" title="Nazwa produktu">{{.FullName}}</div>
-            <div class="medicines__name" title="Nazwa powszechnie stosowana">{{.ShortName}}</div>
+            <div class="medicines__name" title="Nazwa produktu">{{.ProductName}}</div>
+            <div class="medicines__name" title="Nazwa powszechnie stosowana">{{.CommonName}}</div>
         </div>
 
         <div class="medinfo__title">Podstawowe informacje</div>
@@ -44,7 +44,7 @@
 
             {{if .Strength}}
             <div class="medinfo__info-container">
-                <div class="medinfo__info-label">Siła</div>
+                <div class="medinfo__info-label">Moc</div>
                 <div class="medinfo__info-content">{{.Strength}}</div>
             </div>
             {{end}}
@@ -104,7 +104,7 @@
 
         </div>
 
-        <a class="medinfo__btn" href="https://google.pl//search?&q={{.FullName}}">
+        <a class="medinfo__btn" href="https://google.pl//search?&q={{.ProductName}}">
             Szukaj więcej w Google
         </a>
     </div>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <title>Moje Zdrowie</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="">
+
+    <!-- Google Analytics -->
+
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../static/css/src/style.css" />
+
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="../static/css/dist/normalize.min.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900">
+</head>
+
+<body>
+    <div class="modal--medicines modal--medicines--relative">
+        {{if .ProductName}}
+        <form class="refunded__name" action="/medicines" method="post" onclick="submit();">{{.ProductName}}
+            <input hidden name="medID" value="{{.ID}}">
+        </form>
+        {{else}}
+        <div class="refunded__name">Brak produktu w bazie leków</div>
+        {{end}}
+        <div class="refunded__ean">{{.EanCode}}</div>
+
+        {{if .MedicineAmount}}
+        <div class="refunded__info refunded--yes">Refundowany</div>
+
+        <div class="refunded__amount-container">
+            <div class="refunded__amount-label">
+                Wartość refundacji
+            </div>
+            <div class="refunded__amount-data">
+                {{.RefundByPatient}} zł
+            </div>
+        </div>
+
+        {{else}}
+        <div class="refunded__info refunded--no">Nierefundowany</div>
+        {{end}}
+    </div>
+</body>
+
+</html>

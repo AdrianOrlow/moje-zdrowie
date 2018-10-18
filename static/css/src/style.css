@@ -145,15 +145,15 @@ body {
     padding: 1em;
     border-radius: .5em;
     background: #fff;
-    width: 30%;
+    width: calc(100% - 2em);
     margin-right: 5%;
 }
 
 .modal--medicines .medicines__submit {
     display: inline-block;
     padding: 1em;
-    margin: auto;
-    width: calc(30% - 7em);
+    width: calc(100% - 2em);
+    margin-top: 1em;
     border-radius: .5em;
     cursor: pointer;
     text-align: center;
@@ -161,12 +161,26 @@ body {
     background: #e2e2e2;
 }
 
+.medicines__scan {
+    display: inline-block;
+    padding: 1em;
+    border-radius: .5em;
+    background: #969696;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    font-family: "Font Awesome 5 Free";
+    width: calc(33% - 4em);
+    cursor: pointer;
+}
+
 .medtable__title,
 .medicines__title {
     text-align: center;
     font-size: 1.5em;
     font-weight: 600;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
 }
 
 .medtable__el {
@@ -270,6 +284,17 @@ div .medtable__el:nth-child(even) {
     font-size: 1.3em;
     text-align: center;
     margin: 2em 0;
+}
+
+.meadtable__next {
+    width: 25%;
+    padding: 1em;
+    font-weight: 600;
+    text-align: center;
+    border-radius: .5em;
+    background: #e6e6e6;
+    margin-left: auto;
+    cursor: pointer;
 }
 
 /* Medicine Info */
@@ -386,6 +411,7 @@ div .medtable__el:nth-child(even) {
     display: inline-block;
     background: #dedede;
     padding: 2.5%;
+    margin-left: auto;
 }
 
 .medinfo__moreinfo-container:nth-child(even) .medinfo__moreinfo-ean {
@@ -479,4 +505,151 @@ div .medtable__el:nth-child(even) {
 .medinfo__as-el:last-child {
     border-bottom-left-radius: .5em;
     border-bottom-right-radius: .5em;
+}
+
+/* Refunded */
+
+.modal--refunded {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20em;
+    padding: 2em;
+    height: auto;
+    background: #ececec;
+    border-radius: .5em;
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+    box-shadow: 0 5px 20px -1px #44444440;
+}
+
+.refunded__title {
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 1em;
+    text-align: center;
+    border-radius: .5em;
+    background: #e4e4e4;
+    margin-bottom: 2em;
+}
+
+.refunded__input {
+    border: none;
+    padding: 1em;
+    border-radius: .5em;
+    background: #fff;
+    width: 60%;
+    margin-right: 5%;
+}
+
+.refunded__scan {
+    display: inline-block;
+    padding: 1em;
+    border-radius: .5em;
+    background: #7d8ea0;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    font-family: "Font Awesome 5 Free";
+    width: calc(33% - 4em);
+    cursor: pointer;
+}
+
+
+.refunded__submit {
+    padding: 1em;
+    margin-top: 5%;
+    font-weight: 600;
+    font-size: 1.1em;
+    text-align: center;
+    border-radius: .5em;
+    color: #fff;
+    background: #97a8ba;
+    cursor: pointer;
+}
+
+.refunded__name {
+    width: 95%;
+    padding: 2.5%;
+    background: #e1e1e1;
+    border-radius: .5em;
+    display: block;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.refunded__ean {
+    padding: .5em .75em;
+    width: calc(90% - 2em);
+    margin: auto;
+    text-align: center;
+    background: #97a8ba;
+    color: #fafafa;
+    font-weight: 600;
+    border-bottom-left-radius: .5em;
+}
+
+.refunded__info {
+    padding: 0.75em 1em;
+    width: calc(40% - 2em);
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+    margin-left: auto;
+    margin-right: 2.15em;
+    font-weight: 600;
+    color: #fafafa;
+    text-align: center;
+}
+
+.refunded--yes {
+    background: #2ecc71;
+}
+
+.refunded--no {
+    background: #e74c3c;
+}
+
+.refunded__amount-container {
+    width: 50%;
+    margin: auto;
+    margin-top: 2em;
+    border-radius: .5em;
+    overflow: hidden;
+    display: flex;
+}
+
+.refunded__amount-label {
+    width: calc(50% - 2em);
+    text-align: center;
+    padding: 1em;
+    background: #97a8ba;
+    color: #fafafa;
+    font-weight: 600;
+    border-top-left-radius: .5em;
+    border-bottom-left-radius: .5em;
+    display: flex;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.refunded__amount-data {
+    width: calc(50% - 2em);
+    text-align: center;
+    padding: 1em;
+    display: inline-flex;
+    display: -ms-inline-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-weight: 600;
+    color: #222;
+    background: #e1e1e1;
 }

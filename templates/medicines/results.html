@@ -37,8 +37,8 @@
         <p class="medtable__title">Wyniki wyszukiwania</p>
 
         <div class="medtable__el" style="background: #D4D4D4;font-weight: 600;height: 2em; cursor: unset; pointer-events: none;">
-            <div style="line-height: 2em;">Nazwa skrócona</div>
-            <div style="line-height: 2em;">Siła</div>
+            <div style="line-height: 2em;">Nazwa</div>
+            <div style="line-height: 2em;">Moc</div>
             <div style="line-height: 2em;">Producent</div>
         </div>
 
@@ -46,12 +46,18 @@
         {{if .Medicines}}
         {{range .Medicines}}
         <form class="medtable__el" action="/medicines" method="post" onclick="submit();">
-            <div>{{.ShortName}}</div>
+            <div>{{.ProductName}}</div>
             <div>{{.Strength}}</div>
             <div>{{.Producer}}</div>
             <input hidden name="medID" value="{{.ID}}">
         </form>
         {{end}}
+        {{.PageNumber}}
+        <form class="meadtable__next" action="/medicines" method="post" onclick="submit();">
+            Następna strona
+            <input hidden name="min" value="{{.min}}">
+            <input hidden name="max" value="{{.max}}">
+        </form>
         {{else}}
         <p class="medtable__info">Nic nie znaleziono</p>
         {{end}}

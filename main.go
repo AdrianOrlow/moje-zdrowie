@@ -8,6 +8,7 @@ package main
 
 import (
 	"html/template"
+	"moje-zdrowie/downloader"
 	"moje-zdrowie/medicines"
 	"moje-zdrowie/medmap"
 	"moje-zdrowie/refunded"
@@ -25,6 +26,8 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+
+	go downloader.StartDownloads()
 
 	http.HandleFunc("/", start)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
