@@ -119,13 +119,11 @@ func ConvertPharmaciesToMarkers() {
 	xml.Unmarshal(byteValue, &pharmacies)
 
 	geocoder.SetAPIKey("j4wlV4OuOLNcT3ZkAGo7h5qxjtkrsAL7")
-	for j, i := range pharmacies.Pharmacy {
+	for _, i := range pharmacies.Pharmacy {
 		pM := PharmacyMarker{}
 
 		addr := i.Address.addr()
 		pM.Lat, pM.Lng = GetCoord(addr)
-
-		fmt.Println(j, "/", len(pharmacies.Pharmacy))
 
 		pM.ID = i.ID
 		pM.Image = ChooseImage(i.Type)

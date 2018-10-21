@@ -46,10 +46,6 @@ body {
 
 /* Start page */
 
-#map {
-    height: 100%;
-}
-
 .modal--start {
     top: 50%;
     left: 50%;
@@ -652,4 +648,191 @@ div .medtable__el:nth-child(even) {
     font-weight: 600;
     color: #222;
     background: #e1e1e1;
+}
+
+/* Map options */
+
+.map__options {
+    padding: 1em;
+    width: calc(25% - 2em);
+    height: calc(100% - 2em);
+    position: relative;
+    z-index: 100;
+    background: #fafafa;
+    box-shadow: 0 5px 20px -1px #44444440;
+}
+
+.map__container {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+}
+
+#map {
+    height: 100%;
+    width: 75%;
+}
+
+.map__input-containter {
+    width: 100%;
+    height: 4em;
+    border-radius: .5em;
+    background: #f3f3f3;
+    display: flex;
+    border-radius: .5em;
+    overflow: hidden;
+}
+
+.map__input {
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    font-size: 1.2em;
+    width: 70%;
+    padding: 0 5%;
+}
+
+.map__input-btn {
+    width: 20%;
+    height: 100%;
+    background: #97a8ba;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 1.4em;
+}
+
+.map__input-more {
+    width: 80%;
+    padding: .7em 0;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+    background: #dcdcdc;
+    color: #333;
+    cursor: pointer;
+}
+
+.map__footer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    font-weight: 600;
+    height: 5.5em;
+}
+
+.map__show {
+    border-radius: .5em;
+    background: #eaeaea;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.map__show-el {
+    width: 100%;
+    height: 3em;
+    left: 0;
+    display: flex;
+}
+
+.map__show-title {
+    font-weight: 600;
+    font-size: 1.3em;
+    text-align: center;
+    padding: 1em 0;
+}
+
+.map__show-el-name {
+    padding-left: 5%;
+    width: 65%;
+    height: 100%;
+    background: #f1f1f1;
+    font-size: 1.2em;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.map__show-el-settings {
+    height: 100%;
+    width: 15%;
+    background: #dedede;
+    cursor: pointer;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    color: #333;
+}
+
+.map__show-el-checkbox {
+    height: 100%;
+    width: 15%;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    cursor: pointer;
+    color: #fafafa
+}
+
+.show-el-checkbox--yes {
+    background: #2ecc71;
+}
+
+.show-el-checkbox--yes:before {
+    content: "";
+}
+
+.show-el-checkbox--no {
+    background: #e74c3c;
+}
+
+.show-el-checkbox--no:before {
+    content: "";
+}
+
+.modal--wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 150;
+}
+
+.modal--pollution {
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 20em;
+    border-radius: .5em;
+    box-shadow: 0 5px 20px -1px #44444440;
+    z-index: 200;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: #fafafa;
+    overflow: hidden;
+    left: 62.5%;
+}
+
+.pollution__modal-title {
+    width: 100%;
+    height: 3em;
+    font-size: 1.3em;
+    font-weight: 600;
+    background: #eaeaea;
+}
+
+.pollution__modal-container {
+    padding: 5%;
+    height: 65%;
+    width: 90%;
 }

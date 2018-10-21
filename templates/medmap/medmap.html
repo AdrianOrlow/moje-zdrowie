@@ -33,27 +33,196 @@
 </head>
 
 <body>
-    <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQN9iWNOd7ZhuLZa5FPPxeH5mvySCwlEg&callback=initMap"
-        async defer></script>
+    <div id="pollutionPopup" class="modal--wrapper" onclick="hideStationInfo()">
+        <div class="modal--pollution">
+            <div class="pollution__modal-title text--center"><span id="stationName">nazwa_stacji</span></div>
+            <div class="pollution__modal-container"></div>
+        </div>
+    </div>
+
+    <div class="map__container">
+        <div class="map__options">
+            <div style="margin-bottom: 2em">
+                <div class="map__input-containter">
+                    <input class="map__input" id="mapInput" placeholder="Czego szukasz?">
+                    <div class="map__input-btn" onclick="Search()"></div>
+                </div>
+                <div class="map__input-more">Zaawansowane</div>
+            </div>
+
+            <div class="map__show">
+                <div class="map__show-title">Pokaż na mapie</div>
+                <div class="map__show-el">
+                    <div class="map__show-el-name">Apteki</div>
+                    <div class="map__show-el-settings text--center"></div>
+                    <div class="map__show-el-checkbox text--center show-el-checkbox--yes"></div>
+                </div>
+                <div class="map__show-el">
+                    <div class="map__show-el-name">Stacje pomiarowe</div>
+                    <div class="map__show-el-settings text--center"></div>
+                    <div class="map__show-el-checkbox text--center show-el-checkbox--no" onclick="showPollutionMarkers();"></div>
+                </div>
+                <div class="map__show-el">
+                    <div class="map__show-el-name">Placówki lecznicze</div>
+                    <div class="map__show-el-settings text--center"></div>
+                    <div class="map__show-el-checkbox text--center show-el-checkbox--no"></div>
+                </div>
+            </div>
+
+
+
+            <div class="map__footer text--center">
+                © Adrian Orłów 2018
+            </div>
+        </div>
+
+        <div id="map"></div>
+    </div>
+
     <script>
-        var lat = user_position.coords.latitude;
-        var lng = user_position.coords.longitude;
-        myLatlng = new google.maps.LatLng(lat, lng);
+        var map
+        var geocoder
 
-        mapOptions = {
-            zoom: 5,
-            center: myLatlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        function init() {
+            geocoder = new google.maps.Geocoder();
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 52.2330653,
+                    lng: 20.9211125
+                },
+                zoom: 6
+            });
         }
-        geocoder = new google.maps.Geocoder();
-        infoWindow = new google.maps.InfoWindow;
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        var markers = [];
 
+        var searchInput = document.getElementById("mapInput");
+        searchInput.addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                Search();
+            }
+        });
 
+        function Search() {
+            var address = document.getElementById('mapInput').value;
+            geocoder.geocode({
+                'address': address
+            }, function (results, status) {
+                if (status == 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(11)
+                } else {
+                    alert('Nie znaleziono miejsca');
+                }
+            });
+        }
 
-        loadPharmacies();
+        function getStationStatus(sID) {
+            console.log(sID)
+            var pID
+            fetch('http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/' + sID, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                })
+                .then((jsonData) => {
+                    pID = JSON.stringify(jsonData.stIndexLevel.id);
+                    console.log(jsonData.stIndexLevel.id);
+                    console.log(pID);
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+
+            console.log(pID);
+            return pID;
+        }
+
+        function getImage(type, name) {
+            var link = 'static/img/';
+            switch (type) {
+                case 'pollution':
+                    switch (getStationStatus(name.id)) {
+                        case '0':
+                            link += 'pollution/0.png';
+                            break;
+                        case '1':
+                            link += 'pollution/1.png';
+                            break;
+                        case 2:
+                            link += 'pollution/2.png';
+                            break;
+                        case 3:
+                            link += 'pollution/3.png';
+                            break;
+                        case 4:
+                            link += 'pollution/4.png';
+                            break;
+                        case 5:
+                            link += 'pollution/5.png';
+                            break;
+                        case 'nodata':
+                            link += 'pollution/00.png';
+                            break;
+                        default:
+                            console.log(getStationStatus(name.id));
+                            link += 'pollution/00.png';
+                    }
+                    break;
+                default:
+            }
+            console.log(link)
+            return link
+        }
+
+        function showPollutionMarkers() {
+            const pollutionUrl = 'http://api.gios.gov.pl/pjp-api/rest/station/findAll';
+
+            fetch(pollutionUrl, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                })
+                .then((jsonData) => {
+                    jsonData.forEach((obj) => {
+                        var image = {
+                            url: getImage('pollution', obj),
+                            scaledSize: new google.maps.Size(32, 32),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(0, 0)
+                        };
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(obj.gegrLat, obj.gegrLon),
+                            map: map,
+                            title: obj.stationName,
+                            icon: image
+                        });
+                        google.maps.event.addListener(marker, 'click', function () {
+                            alert('działa' + obj.id)
+                        });
+                        markers.push(marker);
+                    });
+                    var markerCluster = new MarkerClusterer(map, markers, {
+                        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+                    });
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+            var markerCluster = new MarkerClusterer(map, markers);
+        }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfKXRZXeuDipRrraTgKT2JAf5qqLqDQj4&callback=init"
+        async defer></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 </body>
 
 </html>
