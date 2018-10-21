@@ -1,10 +1,19 @@
 {
 	"comment": "",
-	"ignore": "test",
-	"package": [],
 	"heroku": {
-		"install": ["./..."],
-		"goVersion": "go1.11"
+		"goVersion": "go1.11",
+		"install": [
+			"./..."
+		]
 	},
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "ZPjYnX2SwGQCiGcCOLF+9hLAnEk=",
+			"path": "github.com/jasonwinn/geocoder",
+			"revision": "198de157cedcbfc5e2b9443e6c3a9ce17c2c4936",
+			"revisionTime": "2018-07-22T17:49:37Z"
+		}
+	],
 	"rootPath": "moje-zdrowie"
 }
