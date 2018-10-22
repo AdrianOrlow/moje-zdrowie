@@ -9,12 +9,41 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "bcihEmxEmUm3UKca45utc9eRyXY=",
+			"path": "github.com/google/uuid",
+			"revision": "9b3b1e0f5f99ae461456d768e7d301a7acdaa2d8",
+			"revisionTime": "2018-09-17T14:00:05Z"
+		},
+		{
+			"checksumSHA1": "GtamqiJoL7PGHsN454AoffBFMa8=",
+			"path": "golang.org/x/net/context",
+			"revision": "04a2e542c03f1d053ab3e4d6e5abcd4b66e2be8e",
+			"revisionTime": "2018-10-17T11:24:37Z"
+		},
+		{
+			"checksumSHA1": "WHc3uByvGaMcnSoI21fhzYgbOgg=",
+			"path": "golang.org/x/net/context/ctxhttp",
+			"revision": "04a2e542c03f1d053ab3e4d6e5abcd4b66e2be8e",
+			"revisionTime": "2018-10-17T11:24:37Z"
+		},
+		{
+			"checksumSHA1": "CCw5z0nFydNs8Gep87Bl5azBs1c=",
+			"path": "golang.org/x/time/rate",
+			"revision": "fbb02b2291d28baffd63558aa44b4b56f178d650",
+			"revisionTime": "2018-04-12T16:56:04Z"
+		},
+		{
 			"checksumSHA1": "ZcQaSVzbQhlwOJD3e8sIdhoZNNo=",
 			"path": "googlemaps.github.io/maps",
+			"revision": "1aaf6fed803784908a3bdb5d5d3ffebb5cf1ea35",
+			"revisionTime": "2018-10-19T00:06:46Z"
+		},
+		{
+			"checksumSHA1": "4c6K8ctSVS/047/UP5skTdlTaL0=",
+			"path": "googlemaps.github.io/maps/internal",
 			"revision": "1aaf6fed803784908a3bdb5d5d3ffebb5cf1ea35",
 			"revisionTime": "2018-10-19T00:06:46Z"
 		}
 	],
 	"rootPath": "moje-zdrowie"
 }
-
