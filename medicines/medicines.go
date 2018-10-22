@@ -2,7 +2,6 @@ package medicines
 
 import (
 	"encoding/xml"
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -112,7 +111,6 @@ func CheckName(min, max int, name string) Medicines {
 			break
 		}
 	}
-	fmt.Println(data)
 	data.LastUpdate = medicines.LastUpdate
 	return data
 }

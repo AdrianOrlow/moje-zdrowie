@@ -6,7 +6,9 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
+	"strings"
 
 	"googlemaps.github.io/maps"
 )
@@ -161,12 +163,11 @@ func ConvertPharmaciesToMarkers() {
 	defer pharmaciesData.Close()
 	byteValue, _ := ioutil.ReadAll(pharmaciesData)
 	xml.Unmarshal(byteValue, &pharmacies)
-	for j, i := range pharmacies.Pharmacy {
+	for _, i := range pharmacies.Pharmacy {
 		pM := PharmacyMarker{}
 
 		addr := i.Address.addr()
 		pM.Lat, pM.Lng = GetCoord(addr)
-		fmt.Println(j, "/", len(pharmacies.Pharmacy))
 		pM.ID = i.ID
 		pM.Image = ChooseImage(i.Type)
 
@@ -175,4 +176,51 @@ func ConvertPharmaciesToMarkers() {
 
 	markers, _ := json.Marshal(pharmacyMarkers)
 	ioutil.WriteFile("pharmacies-markers.json", markers, 0644)
+}
+
+type PharmacyInfo struct {
+	Name              string
+	Type              string
+	TemporarilyClosed string
+	Website           string
+	Phone             string
+	Opening           []OpeningDay
+	Address           string
+}
+
+func GetPharmacyInfo(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	form := r.Form
+	var pharmacy Pharmacy
+	var pharmacyInfo PharmacyInfo
+	var pharmacies Pharmacies
+
+	pharmaciesData, _ := os.Open("downloads/pharmacies.xml")
+	defer pharmaciesData.Close()
+	byteValue, _ := ioutil.ReadAll(pharmaciesData)
+	xml.Unmarshal(byteValue, &pharmacies)
+
+	switch pid := strings.Join(form["pid"], ""); pid != "" {
+	case true:
+		for i := 0; i < len(pharmacies.Pharmacy); i++ {
+			switch pharmacies.Pharmacy[i].ID == pid {
+			case true:
+				pharmacy = pharmacies.Pharmacy[i]
+				break
+			}
+		}
+		pharmacyInfo.Name = pharmacy.Name
+		pharmacyInfo.Type = pharmacy.Type
+		pharmacyInfo.TemporarilyClosed = pharmacy.TemporarilyClosed
+		pharmacyInfo.Website = pharmacy.Website
+		pharmacyInfo.Phone = pharmacy.Phone
+		pharmacyInfo.Address = pharmacy.Address.addr()
+		for _, i := range pharmacy.OpeningDays {
+			pharmacyInfo.Opening = append(pharmacyInfo.Opening, i)
+		}
+		break
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(pharmacyInfo)
 }

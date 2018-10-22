@@ -58,7 +58,7 @@ function toggleStationInfo() {
 var pChart = null;
 
 function postDataToGraph(id) {
-    fetch('http://api.gios.gov.pl/pjp-api/rest/data/getData/' + id, {
+    fetch('https://cors-anywhere.herokuapp.com/http://api.gios.gov.pl/pjp-api/rest/data/getData/' + id, {
             method: 'GET',
             mode: 'cors'
         })
@@ -107,7 +107,7 @@ function postDataToGraph(id) {
 }
 
 function showStationInfo(id, name) {
-    fetch('http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/' + id, {
+    fetch('https://cors-anywhere.herokuapp.com/http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/' + id, {
             method: 'GET',
             mode: 'cors'
         })
@@ -126,7 +126,7 @@ function showStationInfo(id, name) {
             console.log(err.message);
         });
 
-    fetch('http://api.gios.gov.pl/pjp-api/rest/station/sensors/' + id, {
+    fetch('https://cors-anywhere.herokuapp.com/http://api.gios.gov.pl/pjp-api/rest/station/sensors/' + id, {
             method: 'GET',
             mode: 'cors'
         })
@@ -151,7 +151,7 @@ function showStationInfo(id, name) {
 
 function getStationStatus(sID) {
     var pID
-    fetch('http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/' + sID, {
+    fetch('https://cors-anywhere.herokuapp.com/http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/' + sID, {
             method: 'GET',
             mode: 'cors'
         })
@@ -210,7 +210,7 @@ function showPollutionMarkers() {
     pollutionCBox.classList.add('show-el-checkbox--yes');
     pollutionCBox.style = 'pointer-events:none;';
 
-    const pollutionUrl = 'http://api.gios.gov.pl/pjp-api/rest/station/findAll';
+    const pollutionUrl = 'https://cors-anywhere.herokuapp.com/http://api.gios.gov.pl/pjp-api/rest/station/findAll';
 
     fetch(pollutionUrl, {
             method: 'GET',
@@ -251,7 +251,21 @@ function showPollutionMarkers() {
 }
 
 function showPharmacyInfo(id) {
-    alert(id)
+    var formData = new FormData();
+    formData.append("pid", id);
+
+    var json_data
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/pharmacy");
+    xhr.send(formData);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4)
+            if (xhr.status == 200)
+                json_data = xhr.responseText;
+    };
+
+    console.log(json_data)
 }
 
 function showPharmaciesMarkers() {
@@ -310,7 +324,7 @@ var info = [{
     name: "pharmacies",
     symbol: "",
     fullname: "Apteki",
-    content: ""
+    content: "Ta funkcja pozwala ci na przeglądanie danych aptek z mapy. Wyświetla podstawowe informacje, kontakt, godziny otwarcia i temu podobne. [WiP - są podstawy działania, ale z powodu braku czasu nie mogły zostać w pełni wprowadzone]"
 }, {
     name: "pollution",
     symbol: "",

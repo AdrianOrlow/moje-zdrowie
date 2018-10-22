@@ -11,6 +11,7 @@ import (
 	"moje-zdrowie/downloader"
 	"moje-zdrowie/medicines"
 	"moje-zdrowie/medmap"
+	"moje-zdrowie/pharmacies"
 	"moje-zdrowie/refunded"
 	"net/http"
 	"os"
@@ -35,6 +36,7 @@ func main() {
 	http.HandleFunc("/map", medmap.Page)
 	http.HandleFunc("/medicines", medicines.Page)
 	http.HandleFunc("/refunded", refunded.Page)
+	http.HandleFunc("/pharmacy", pharmacies.GetPharmacyInfo)
 
 	http.ListenAndServe(":"+port, nil)
 }

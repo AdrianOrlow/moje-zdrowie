@@ -1063,9 +1063,140 @@ div .medtable__el:nth-child(even) {
     width: 100%;
 }
 
+.pharmacy__name {
+    width: 95%;
+    height: auto;
+    padding: 2.5%;
+    font-size: 1.3em;
+    font-weight: 600;
+    text-align: center;
+    border-radius: .5em;
+    background: #eaeaea;
+}
+
+.pharmacy__type {
+    padding: .5em .75em;
+    width: calc(90% - 2em);
+    margin: auto;
+    text-align: center;
+    background: #8491a0;
+    color: #fafafa;
+    font-weight: 600;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+    margin-bottom: 2em;
+}
+
+.pharmacy__info-container {
+    width: 90%;
+    padding: 5%;
+    height: auto;
+    background: #eaeaea;
+    border-radius: .5em;
+    border-top-left-radius: 0;
+}
+
+.pharmacy__title {
+    background: #97a8ba;
+    color: #fafafa;
+    width: 45%;
+    padding: 2.5%;
+    border-top-right-radius: .5em;
+    border-top-left-radius: .5em;
+    font-weight: 600;
+}
+
+.pharmacy__el-container {
+    width: 75%;
+    margin: auto;
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.pharmacy__el-symbol {
+    width: 25%;
+    padding: 5%;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+    background: #97a8ba;
+    border-top-left-radius: .5em;
+    border-bottom-left-radius: .5em;
+    display: flex;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-family: "Font Awesome 5 Free";
+}
+
+.pharmacy__warning {
+    width: 50%;
+    padding: 2.5%;
+    border-radius: .5em;
+    margin: auto;
+    margin-bottom: 2em;
+    color: #fff;
+    background: #e74c3c;
+    text-align: center;
+    font-weight: 600;
+}
+
+.pharmacy__el-content {
+    display: inline-flex;
+    display: -ms-inline-flexbox;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 55%;
+    padding: 5%;
+    text-align: center;
+    font-weight: 600;
+    color: #222;
+    background: #dedede;
+    border-top-right-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+
+@media only screen and (max-width: 1050px) {
+    .map__options {
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .map__options {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .map__options {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .map__options {
+        display: none;
+    }
+
+    #map {
+        width: 100%;
+    }
+}
+
 @media only screen and (max-width: 700px) {
-    .modal--medicines {
+
+    .modal--medicines,
+    .modal--refunded {
         width: calc(100% - 4em);
+    }
+
+    .refunded__amount-container {
+        width: 80%;
     }
 
     .modal--info {
@@ -1074,8 +1205,40 @@ div .medtable__el:nth-child(even) {
     }
 }
 
+.modal--pharmacy {
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: auto;
+    border-radius: .5em;
+    box-shadow: 0 5px 20px -1px #44444440;
+    z-index: 200;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: #fafafa;
+    overflow: hidden;
+    left: 62.5%;
+}
+
+.pharmacy__container {
+    width: 90%;
+    height: 90%;
+    padding: 5%;
+    background: #fafafa;
+}
+
+@media only screen and (max-width: 540px) {
+    .medtable__el div:nth-child(3) {
+        width: 36%;
+    }
+}
+
 @media only screen and (max-width: 460px) {
     .refunded__info {
         width: calc(70% - 2em);
+    }
+
+    .medinfo__info-container {
+        width: 100%;
     }
 }
