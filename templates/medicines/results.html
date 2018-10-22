@@ -53,7 +53,7 @@
         </form>
         {{end}}
         {{.PageNumber}}
-        <form class="meadtable__next" action="/medicines" method="post" onclick="submit();">
+        <form hidden class="meadtable__next" action="/medicines" method="post" onclick="submit();">
             Następna strona
             <input hidden name="min" value="{{.min}}">
             <input hidden name="max" value="{{.max}}">

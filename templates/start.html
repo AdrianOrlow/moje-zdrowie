@@ -39,7 +39,7 @@
         </div>
         <a class="start__el text--center" href="map">
             <div class="start__el__symbol text--center"></div>
-            <div class="start__el__text">Mapa aptek</div>
+            <div class="start__el__text">Mapa</div>
         </a>
         <a class="start__el text--center" href="medicines">
             <div class="start__el__symbol text--center"></div>
@@ -49,10 +49,6 @@
             <div class="start__el__symbol text--center"></div>
             <div class="start__el__text">Leki refundowane</div>
         </a>
-        <a class="start__el text--center" href="pollution">
-            <div class="start__el__symbol text--center"></div>
-            <div class="start__el__text">Zanieczyszenie powietrza</div>
-        </a>
         <a class="start__el text--center" href="stats">
             <div class="start__el__symbol text--center"></div>
             <div class="start__el__text">Statystyki</div>
@@ -61,22 +57,6 @@
             © Adrian Orłów 2018
         </div>
     </div>
-    <div id="map" class="block--blur"></div>
-    <script>
-        var map;
-
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {
-                    lat: 52.2330653,
-                    lng: 20.9211125
-                },
-                zoom: 8
-            });
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfKXRZXeuDipRrraTgKT2JAf5qqLqDQj4&callback=initMap"
-        async defer></script>
 </body>
 
 </html>

@@ -49,6 +49,7 @@ func Results(w http.ResponseWriter, r *http.Request) {
 		}
 		refundedMed.RefundByPatient = FloatToString(refundedMed.RefundAmount / refundedMed.MedicineAmount)
 		refundedMed.ProductName, refundedMed.ID = medicines.GetName(ean)
+		refundedMed.EanCode = ean
 		break
 	}
 

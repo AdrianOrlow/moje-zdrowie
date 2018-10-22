@@ -1,13 +1,14 @@
 package pharmacies
 
 import (
+	"context"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
 	"os"
 
-	"github.com/jasonwinn/geocoder"
+	"googlemaps.github.io/maps"
 )
 
 type Pharmacies struct {
@@ -80,20 +81,53 @@ type PharmacyMarker struct {
 	Lng   string
 }
 
+/* Geocoding */
+
+type GeoResults struct {
+	Results []struct {
+		AddressComponents []struct {
+			LongName  string   `json:"long_name"`
+			ShortName string   `json:"short_name"`
+			Types     []string `json:"types"`
+		} `json:"address_components"`
+		FormattedAddress string `json:"formatted_address"`
+		Geometry         struct {
+			Location struct {
+				Lat float64 `json:"lat"`
+				Lng float64 `json:"lng"`
+			} `json:"location"`
+			LocationType string `json:"location_type"`
+			Viewport     struct {
+				Northeast struct {
+					Lat float64 `json:"lat"`
+					Lng float64 `json:"lng"`
+				} `json:"northeast"`
+				Southwest struct {
+					Lat float64 `json:"lat"`
+					Lng float64 `json:"lng"`
+				} `json:"southwest"`
+			} `json:"viewport"`
+		} `json:"geometry"`
+		PlaceID string   `json:"place_id"`
+		Types   []string `json:"types"`
+	} `json:"results"`
+	Status string `json:"status"`
+}
+
 func ChooseImage(Type string) (link string) {
 	link = "static/img/pharmacies/"
 	switch Type {
 	case "apteka ogólnodostępna":
-		link += ""
+		link += "0.png"
 		break
 	case "punkt apteczny":
-		link += ""
+		link += "1.png"
 		break
 	case "dział farmacji szpitalnej":
-		link += ""
+		link += "2.png"
 		break
 	default:
-		link += ""
+		link += "3.png"
 		break
 	}
 
@@ -101,7 +135,17 @@ func ChooseImage(Type string) (link string) {
 }
 
 func GetCoord(a string) (string, string) {
-	lat, lng, _ := geocoder.Geocode(a)
+	c, _ := maps.NewClient(maps.WithAPIKey("AIzaSyBQN9iWNOd7ZhuLZa5FPPxeH5mvySCwlEg"))
+	r := &maps.GeocodingRequest{
+		Address: a,
+	}
+	v, _ := c.Geocode(context.Background(), r)
+
+	var lat, lng float64 = 0, 0
+	if len(v) > 0 {
+		lat = v[0].Geometry.Location.Lat
+		lng = v[0].Geometry.Location.Lng
+	}
 	return fmt.Sprint(lat), fmt.Sprint(lng)
 }
 
@@ -117,14 +161,12 @@ func ConvertPharmaciesToMarkers() {
 	defer pharmaciesData.Close()
 	byteValue, _ := ioutil.ReadAll(pharmaciesData)
 	xml.Unmarshal(byteValue, &pharmacies)
-
-	geocoder.SetAPIKey("j4wlV4OuOLNcT3ZkAGo7h5qxjtkrsAL7")
-	for _, i := range pharmacies.Pharmacy {
+	for j, i := range pharmacies.Pharmacy {
 		pM := PharmacyMarker{}
 
 		addr := i.Address.addr()
 		pM.Lat, pM.Lng = GetCoord(addr)
-
+		fmt.Println(j, "/", len(pharmacies.Pharmacy))
 		pM.ID = i.ID
 		pM.Image = ChooseImage(i.Type)
 
@@ -132,5 +174,5 @@ func ConvertPharmaciesToMarkers() {
 	}
 
 	markers, _ := json.Marshal(pharmacyMarkers)
-	ioutil.WriteFile("static/json/pharmacies-markers.json", markers, 0644)
+	ioutil.WriteFile("pharmacies-markers.json", markers, 0644)
 }

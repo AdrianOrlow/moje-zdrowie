@@ -6,8 +6,6 @@ import (
 	"net/http"
 	"os"
 	"time"
-
-	"moje-zdrowie/pharmacies"
 )
 
 func StartDownloads() {
@@ -16,7 +14,7 @@ func StartDownloads() {
 			"downloads/pharmacies.xml": "http://pub.rejestrymedyczne.csioz.gov.pl/Pobieranie_WS/Pobieranie.ashx?filetype=XMLFile&regtype=RA_FILES",
 			"downloads/medicines.xml":  "http://pub.rejestrymedyczne.csioz.gov.pl/pobieranie_WS/Pobieranie.ashx?filetype=XMLFile&regtype=RPL_FILES_BASE",
 		}
-		pharmacies.ConvertPharmaciesToMarkers()
+		/* pharmacies.ConvertPharmaciesToMarkers() */
 		for filepath, url := range sources {
 			go DownloadFile(filepath, url)
 		}

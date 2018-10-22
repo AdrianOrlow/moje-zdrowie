@@ -9,11 +9,12 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "ZPjYnX2SwGQCiGcCOLF+9hLAnEk=",
-			"path": "github.com/jasonwinn/geocoder",
-			"revision": "198de157cedcbfc5e2b9443e6c3a9ce17c2c4936",
-			"revisionTime": "2018-07-22T17:49:37Z"
+			"checksumSHA1": "ZcQaSVzbQhlwOJD3e8sIdhoZNNo=",
+			"path": "googlemaps.github.io/maps",
+			"revision": "1aaf6fed803784908a3bdb5d5d3ffebb5cf1ea35",
+			"revisionTime": "2018-10-19T00:06:46Z"
 		}
 	],
 	"rootPath": "moje-zdrowie"
 }
+
